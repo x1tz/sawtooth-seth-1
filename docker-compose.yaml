@@ -128,21 +128,21 @@ services:
       bash -c "
         if [ ! -f /etc/keys/validator.priv ]; then
         sawadm keygen &&
-        sawset genesis \\
-          -k /etc/sawtooth/keys/validator.priv \\
+        sawset genesis \
+          -k /etc/sawtooth/keys/validator.priv \
           -o config-genesis.batch &&
-        sawset proposal create \\
-          -k /etc/sawtooth/keys/validator.priv \\
-          sawtooth.consensus.algorithm.name=Devmode \\
-          sawtooth.consensus.algorithm.version=0.1 \\
-          sawtooth.validator.batch_injectors=block_info \\
+        sawset proposal create \
+          -k /etc/sawtooth/keys/validator.priv \
+          sawtooth.consensus.algorithm.name=Devmode \
+          sawtooth.consensus.algorithm.version=0.1 \
+          sawtooth.validator.batch_injectors=block_info \
           -o config.batch &&
         sawadm genesis config-genesis.batch config.batch
         fi;
-        sawtooth-validator -vv \\
-            --endpoint tcp://validator:8800 \\
-            --bind component:tcp://eth0:4004 \\
-            --bind network:tcp://eth0:8800 \\
+        sawtooth-validator -vv \
+            --endpoint tcp://validator:8800 \
+            --bind component:tcp://eth0:4004 \
+            --bind network:tcp://eth0:8800 \
             --bind consensus:tcp://eth0:5050
       "
 
